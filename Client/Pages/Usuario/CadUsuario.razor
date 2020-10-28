@@ -1,0 +1,89 @@
+@page  "/Usuario/CadUsuario"
+@using System.Net.Http
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<div class="card m-3">
+    <h4 class="card-header">Cadastro do Usuário</h4>
+    <div class="card-body">
+        <EditForm Model="@usuario" OnValidSubmit="HandleValidSubmit" @onreset="HandleReset">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <div class="form-group col-5">
+                    <label>Nome</label>
+                    <InputText @bind-Value="usuario.Nome " class="form-control" />
+                    <ValidationMessage For="@(() => usuario.Nome )" />
+                </div>
+                <div class="form-group col-5">
+                    <label>Sobrenome</label>
+                    <InputText @bind-Value="usuario.Sobrenome " class="form-control" />
+                    <ValidationMessage For="@(() => usuario.Sobrenome )" />
+                </div>
+                <div class="form-group col-5">
+                    <label>CPF</label>
+                    <InputText @bind-Value="usuario.CPF" class="form-control" />
+                    <ValidationMessage For="@(() => usuario.CPF)" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Data de Nascimento</label>
+                    <InputDate @bind-Value="usuario.DataDeNascimento" class="form-control" />
+                    <ValidationMessage For="@(() => usuario.DataDeNascimento)" />
+                </div>
+                <div class="form-group col">
+                    <label>Email</label>
+                    <InputText @bind-Value="usuario.Email" class="form-control" />
+                    <ValidationMessage For="@(() => usuario.Email)" />
+                </div>
+                <div class="form-group col">
+                    <label>Endereço</label>
+                    <InputText @bind-Value="usuario.Endereço" class="form-control" />
+                    <ValidationMessage For="@(() => usuario.Endereço)" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Senha</label>
+                    <InputText @bind-Value="usuario.Senha" type="password" class="form-control" />
+                    <ValidationMessage For="@(() => usuario.Senha)" />
+                </div>
+                <div class="form-group col">
+                    <label>Confirma sua senha</label>
+                    <InputText @bind-Value="usuario.ConfirmarSenha" type="password" class="form-control" />
+                    <ValidationMessage For="@(() => usuario.ConfirmarSenha)" />
+                </div>
+            </div>
+            <div class="form-group form-check">
+                <InputCheckbox @bind-Value="usuario.AcceptTerms" id="acceptTerms" class="form-check-input" />
+                <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+                <ValidationMessage For="@(() => usuario.AcceptTerms)" />
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mr-1">Salvar</button>
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private Usuario usuario = new Usuario();
+    
+    private EditContext editContext { get; set;}
+
+    private async Task HandleValidSubmit()
+    {
+        //Enviar dados para o Controller no Backend
+        var usuarios = await Http.PostAsJsonAsync("/Usuario/Create", usuario);
+        NavigationManager.NavigateTo("Usuario/ListarUsuario");
+
+    }
+
+    private void HandleReset()
+    {
+        usuario = new Usuario();
+        editContext = new EditContext(usuario);
+    }
+}

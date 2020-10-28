@@ -1,0 +1,9 @@
+C:\Users\luca-\Desktop\Segundatentativa\Shared\bin\Debug\netstandard2.1\Segundatentativa.Shared.deps.json
+C:\Users\luca-\Desktop\Segundatentativa\Shared\bin\Debug\netstandard2.1\Segundatentativa.Shared.dll
+C:\Users\luca-\Desktop\Segundatentativa\Shared\bin\Debug\netstandard2.1\Segundatentativa.Shared.pdb
+C:\Users\luca-\Desktop\Segundatentativa\Shared\obj\Debug\netstandard2.1\Segundatentativa.Shared.csprojAssemblyReference.cache
+C:\Users\luca-\Desktop\Segundatentativa\Shared\obj\Debug\netstandard2.1\Segundatentativa.Shared.AssemblyInfoInputs.cache
+C:\Users\luca-\Desktop\Segundatentativa\Shared\obj\Debug\netstandard2.1\Segundatentativa.Shared.AssemblyInfo.cs
+C:\Users\luca-\Desktop\Segundatentativa\Shared\obj\Debug\netstandard2.1\Segundatentativa.Shared.csproj.CoreCompileInputs.cache
+C:\Users\luca-\Desktop\Segundatentativa\Shared\obj\Debug\netstandard2.1\Segundatentativa.Shared.dll
+C:\Users\luca-\Desktop\Segundatentativa\Shared\obj\Debug\netstandard2.1\Segundatentativa.Shared.pdb

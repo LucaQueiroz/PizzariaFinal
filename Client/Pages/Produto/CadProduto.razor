@@ -1,0 +1,58 @@
+@page  "/Produto/CadProduto"
+@using System.Net.Http
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<div class="card m-3">
+    <h4 class="card-header">Cadastro do Produto</h4>
+    <div class="card-body">
+        <EditForm Model="@produto" OnValidSubmit="HandleValidSubmit" @onreset="HandleReset">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <div class="form-group col-5">
+                    <label>Produto</label>
+                    <InputText @bind-Value="produto.Nome" class="form-control" />
+                    <ValidationMessage For="@(() => produto.Nome)" />
+                </div>
+                <div class="form-group col-5">
+                    <label>Descricao do produto</label>
+                    <InputText @bind-Value="produto.Descricao" class="form-control" />
+                    <ValidationMessage For="@(() => produto.Descricao)" />
+                </div>
+                <div class="form-group col">
+                    <label>Valor do produto</label>
+                    <InputNumber @bind-Value="produto.Preco" class="form-control" />
+                    <ValidationMessage For="@(() => produto.Preco )" />
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mr-1">Salvar</button>
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private Produto produto = new Produto();
+    
+    private EditContext editContext { get; set;}
+
+    private async Task HandleValidSubmit()
+    {
+        //Enviar dados para o Controller no Backend
+        var produtos = await Http.PostAsJsonAsync("/Produto/Create", produto);
+        NavigationManager.NavigateTo("Produto/ListarProduto");
+
+    }
+
+    private void HandleReset()
+    {
+        produto = new Produto();
+        editContext = new EditContext(produto);
+    }
+
+    
+
+}

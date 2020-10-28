@@ -1,0 +1,55 @@
+@page  "/Usuario/ListarUsuario"
+@using System.Net.Http
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Usuários</h3>
+
+<div class="card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Sobrenome</th>
+                <th scope="col">Endereço</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ListaUsuario)
+            {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Sobrenome</td>
+                <td>@item.Endereço</td>
+                <td>
+                    <a href="/Usuario/EditarUsuario/@item.Usuario_Id.ToString()" ><button class="btn btn-success">Editar</button></a>
+                    <button class="btn btn-danger" @onclick="@(() => DeleteUsuario(item.Usuario_Id))">Deletar</button>
+                </td>
+            </tr>
+            }   
+        </tbody>
+    </table>
+</div>
+
+@code {
+
+    private List<Usuario> ListaUsuario = new List<Usuario>();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var usuarios = await Http.GetFromJsonAsync<List<Usuario>>("/Usuario/List");
+        foreach (var item in usuarios)
+        {
+            ListaUsuario.Add(item);
+        }
+    }
+
+    private async Task DeleteUsuario(int itemId)
+    {
+        //call controller
+        await Http.DeleteAsync("/Usuario/Delete/"+itemId);
+        NavigationManager.NavigateTo("Usuario/ListarUsuario", true);
+    }
+
+}
